@@ -1,0 +1,75 @@
+import yt_dlp as youtube_dl
+import os
+import certifi
+import pyttsx3
+
+speak = pyttsx3.init()
+
+def check(link, path):
+    try:
+        # Check if the link corresponds to YouTube
+        if "youtube.com" in link or "youtu.be" in link:
+            vid = {
+                'outtmpl': os.path.join(path, '%(title)s.%(ext)s'),
+                'format': 'best',
+            }
+            with youtube_dl.YoutubeDL(vid) as yt:
+                yt.download([link])
+            speak.say("YouTube Download completed successfully!")
+            speak.runAndWait()
+            print("YouTube Download completed successfully!")
+
+        # Check if the link corresponds to Facebook
+        elif "facebook.com" in link:
+            vid = {
+                'outtmpl': os.path.join(path, '%(title)s.%(ext)s'),
+                'format': 'best',
+            }
+            with youtube_dl.YoutubeDL(vid) as f_book:
+                f_book.download([link])
+            speak.say("Successfully Downloaded Facebook Video!")
+            speak.runAndWait()
+            print("Successfully Downloaded Facebook Video")
+
+        # Check if the link corresponds to Instagram
+        elif "instagram.com" in link:
+            vid = {
+                'outtmpl': os.path.join(path, '%(title)s.%(ext)s'),
+                'format': 'best',
+            }
+            with youtube_dl.YoutubeDL(vid) as insta:
+                insta.download([link])
+            speak.say("Successfully Downloaded Instagram Video!")
+            speak.runAndWait()
+            print("Successfully Downloaded Instagram Video")
+
+        # Check if the link corresponds to Twitter
+        elif "twitter.com" in link:
+            vid = {
+                'outtmpl': os.path.join(path, '%(title)s.%(ext)s'),
+                'format': 'best',
+            }
+            with youtube_dl.YoutubeDL(vid) as twit:
+                twit.download([link])
+            speak.say("Successfully Downloaded Twitter Video!")
+            speak.runAndWait()
+            print("Successfully Downloaded Twitter Video")
+
+        else:
+            speak.say("Unable to find a video at the provided link.")
+            speak.runAndWait()
+            print("Unable to find a video at the provided link.")
+
+    except Exception as e:
+        speak.say(f"An error occurred: {str(e)}")
+        speak.runAndWait()
+        print(f"An error occurred: {e}")
+
+if __name__ == "__main__":
+    speak.say("Enter the Link:")
+    speak.runAndWait()
+    link = input("Enter The Link: ")
+
+    path = r"D:\Python\PYTHON_PROJECTS"
+    
+    check(link, path)
